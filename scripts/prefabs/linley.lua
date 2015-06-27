@@ -98,7 +98,7 @@ local master_postinit = function(inst)
 	inst.OnLoad = onload
     inst.OnNewSpawn = onload
 
-
+    inst:SetStateGraph("SGlinley")
     
 end
 
