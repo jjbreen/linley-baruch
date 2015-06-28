@@ -98,6 +98,8 @@ local master_postinit = function(inst)
 	inst.OnLoad = onload
     inst.OnNewSpawn = onload
 
+    inst.canWorldWalk = false
+
     inst:SetStateGraph("SGlinley")
     
 end

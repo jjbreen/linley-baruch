@@ -132,6 +132,10 @@ local function ShakeIfClose(inst)
 	end
 end
 
+local function SpawnMoveFx(inst)
+    SpawnPrefab("mole_move_fx").Transform:SetPosition(inst.Transform:GetWorldPosition())
+end
+
 local actionhandlers =
 {
     ActionHandler(ACTIONS.CHOP,
@@ -219,7 +223,6 @@ local actionhandlers =
         end),
     ActionHandler(ACTIONS.PICK, 
         function(inst, action)
-        	ShakeIfClose(inst)
             if action.target.components.pickable then
                 if action.target.components.pickable.quickpick then
                     return "doshortaction"
@@ -331,7 +334,6 @@ local events =
             return
         end
 
-        ShakeIfClose(inst)
         local is_moving = inst.sg:HasStateTag("moving")
         local should_move = inst.components.locomotor:WantsToMoveForward()
 
@@ -2625,6 +2627,11 @@ local states =
 
         onenter = function(inst) 
             inst.components.locomotor:RunForward()
+
+            if inst.canWorldWalk then
+            	ShakeIfClose(inst)
+            end
+
             local anim = inst:HasTag("groggy") and "idle_walk" or "run_loop"
             if not inst.AnimState:IsCurrentAnimation(anim) then
                 inst.AnimState:PlayAnimation(anim, true)
@@ -2634,27 +2641,64 @@ local states =
 
         onupdate = function(inst)
             inst.components.locomotor:RunForward()
+
+            if inst.canWorldWalk then
+            	ShakeIfClose(inst)
+            end
         end,
 
         timeline =
         {
+        	TimeEvent(0*FRAMES,  function(inst)
+        		if inst.canWorldWalk then
+        			SpawnMoveFx(inst)
+        		end
+        	end),
+            TimeEvent(5*FRAMES,  function(inst)
+            	if inst.canWorldWalk then
+            		SpawnMoveFx(inst)
+            	end
+            end),
             TimeEvent(7 * FRAMES, function(inst)
-                if inst.sg.mem.footsteps > 3 then
-                    PlayFootstep(inst, .6, true)
-                else
-                    inst.sg.mem.footsteps = inst.sg.mem.footsteps + 1
-                    PlayFootstep(inst, 1, true)
+            	if inst.canWorldWalk then
+            		SpawnMoveFx(inst)
+            	else
+                	if inst.sg.mem.footsteps > 3 then
+                    	PlayFootstep(inst, .6, true)
+                	else
+                    	inst.sg.mem.footsteps = inst.sg.mem.footsteps + 1
+                    	PlayFootstep(inst, 1, true)
+                	end
+                	DoFoleySounds(inst)
                 end
-                DoFoleySounds(inst)
+            end),
+            TimeEvent(10*FRAMES, function(inst)
+            	if inst.canWorldWalk then
+            		SpawnMoveFx(inst)
+            	end
             end),
             TimeEvent(15 * FRAMES, function(inst)
-                if inst.sg.mem.footsteps > 3 then
-                    PlayFootstep(inst, .6, true)
-                else
-                    inst.sg.mem.footsteps = inst.sg.mem.footsteps + 1
-                    PlayFootstep(inst, 1, true)
+            	if inst.canWorldWalk then
+            		SpawnMoveFx(inst)
+            	else
+                	if inst.sg.mem.footsteps > 3 then
+                	    PlayFootstep(inst, .6, true)
+                	else
+                    	inst.sg.mem.footsteps = inst.sg.mem.footsteps + 1
+                    	PlayFootstep(inst, 1, true)
+                	end
+                	DoFoleySounds(inst)
                 end
-                DoFoleySounds(inst)
+            end),
+            TimeEvent(20*FRAMES, function(inst)
+            	if inst.canWorldWalk then
+            		SpawnMoveFx(inst)
+            	end
+            end),
+            TimeEvent(25*FRAMES, function(inst)
+            	if inst.canWorldWalk then
+            		SpawnMoveFx(inst)
+            	end
             end),
         },
 

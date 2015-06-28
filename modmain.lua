@@ -170,6 +170,26 @@ AddComponentPostInit('health', HealthPostInit) --
 --	end
 --end)
 
+
+-- The World Walk Ability, which allows Linley to Merge with the Earth itself
+GLOBAL.TheInput:AddKeyDownHandler(GLOBAL.KEY_R, 
+function()
+	local player = GLOBAL.ThePlayer
+	player.canWorldWalk = true
+	player.components.locomotor.walkspeed = 10
+	player.components.locomotor.runspeed = 12.5
+end
+)
+
+GLOBAL.TheInput:AddKeyUpHandler(GLOBAL.KEY_R,
+function()
+	local player = GLOBAL.ThePlayer
+	player.canWorldWalk = false
+	player.components.locomotor.walkspeed = 6
+	player.components.locomotor.runspeed = 8.5
+end
+)
+
 -- The character select screen lines
 STRINGS.CHARACTER_TITLES.linley = "Linley Baruch"
 STRINGS.CHARACTER_NAMES.linley = "Linley"
