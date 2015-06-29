@@ -176,8 +176,8 @@ GLOBAL.TheInput:AddKeyDownHandler(GLOBAL.KEY_R,
 function()
 	local player = GLOBAL.ThePlayer
 	player.canWorldWalk = true
-	player.components.locomotor.walkspeed = 10
-	player.components.locomotor.runspeed = 12.5
+	player.components.locomotor.walkspeed = 13
+	player.components.locomotor.runspeed = 16
 end
 )
 
@@ -210,6 +210,26 @@ function()
 	end
 end
 )
+
+-- Fly Ability
+GLOBAL.TheInput:AddKeyDownHandler(GLOBAL.KEY_F, 
+function()
+	local player = GLOBAL.ThePlayer
+	local pt = Vector3(player.Transform:GetWorldPosition())
+    if pt.y ~= 0 then
+        pt.y = 0
+        player.Physics:Stop()
+        player.Physics:Teleport(pt.x,pt.y,pt.z)
+	    player.DynamicShadow:Enable(false)
+	else
+		pt.y = 1
+        player.Physics:Stop()
+        player.Physics:Teleport(pt.x,pt.y,pt.z)
+	    player.DynamicShadow:Enable(true)
+	end
+end
+)
+
 
 -- The character select screen lines
 STRINGS.CHARACTER_TITLES.linley = "Linley Baruch"

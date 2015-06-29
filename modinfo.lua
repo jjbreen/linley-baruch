@@ -1,8 +1,8 @@
 -- This information tells other players more about the mod
-name = "Broken Mod"
+name = "Linley Baruch"
 description = "Azure Dragon of Four Divine Beast Clan"
 author = "jjbreen (tackownz52 - Steam)"
-version = "0.1.13" -- This is the version of the template. Change it to your own number.
+version = "0.1.21" -- This is the version of the template. Change it to your own number.
 
 -- This is the URL name of the mod's thread on the forum; the part after the ? and before the first & in the url
 forumthread = ""

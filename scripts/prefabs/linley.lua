@@ -31,8 +31,8 @@ local assets = {
         Asset( "SOUND", "sound/wilson.fsb" ),
         Asset( "ANIM", "anim/beard.zip" ),
 
-        Asset( "ANIM", "anim/illya.zip" ),
-        Asset( "ANIM", "anim/ghost_illya_build.zip" ),
+        --Asset( "ANIM", "anim/linley.zip" ),
+        --Asset( "ANIM", "anim/ghost_linley_build.zip" ),
 }
 local prefabs = {
 }
@@ -77,8 +77,8 @@ local function GebadosPrison(inst, target)
         target.Physics:Stop()
     end
     if target.sg then
-        --target.sg:GoToState("stunned")
-        target:PushEvent("gotosleep")  
+        target.sg:GoToState("stunned")
+        --target:PushEvent("gotosleep")  
     end
 end
 
@@ -121,7 +121,7 @@ local master_postinit = function(inst)
     inst:SetStateGraph("SGlinley")
     
     inst:AddComponent("aura")
-    inst.components.aura.radius = 25
+    inst.components.aura.radius = 15
     inst.components.aura.tickperiod = .1
     inst.components.aura.auratestfn = GebadosPrison
 end
