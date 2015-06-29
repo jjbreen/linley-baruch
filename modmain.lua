@@ -190,6 +190,27 @@ function()
 end
 )
 
+-- The Gebados Prison Ability, which freezes time around Linley.
+GLOBAL.TheInput:AddKeyDownHandler(GLOBAL.KEY_C, 
+function()
+	local player = GLOBAL.ThePlayer
+	if player.components.aura then
+		player.components.aura:Enable(true)
+		--player.components.sanity:SetMax(100)
+	end
+end
+)
+
+GLOBAL.TheInput:AddKeyDownHandler(GLOBAL.KEY_V,
+function()
+	local player = GLOBAL.ThePlayer
+	if player.components.aura then
+		player.components.aura:Enable(false)
+		--player.components.sanity:SetMax(150)
+	end
+end
+)
+
 -- The character select screen lines
 STRINGS.CHARACTER_TITLES.linley = "Linley Baruch"
 STRINGS.CHARACTER_NAMES.linley = "Linley"
@@ -197,7 +218,7 @@ STRINGS.CHARACTER_DESCRIPTIONS.linley = "*Lucky Son Of A ...\n*Beirut\n*is OP"
 STRINGS.CHARACTER_QUOTES.linley = "\"Have You Seen The True Face of God Mortal?\""
 
 -- Custom speech strings
-STRINGS.CHARACTERS.ILLYA = require "speech_linley"
+STRINGS.CHARACTERS.LINLEY = require "speech_linley"
 --GLOBAL.STRINGS.CHARACTERS.ILLYA.DESCRIBE.SUMMONBESERKER = "BAHSAHKAH!"
 
 -- The character's name as appears in-game 

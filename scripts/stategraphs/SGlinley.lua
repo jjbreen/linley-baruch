@@ -126,6 +126,7 @@ local function DoEmoteSound(inst, soundname)
     inst.SoundEmitter:PlaySound(soundname, "emotesound")
 end
 
+-- World Walk Functions
 local function ShakeIfClose(inst)
 	for i, v in ipairs(AllPlayers) do
 		v:ShakeCamera(CAMERASHAKE.FULL, .7, .02, .3, inst, 40)
@@ -134,6 +135,26 @@ end
 
 local function SpawnMoveFx(inst)
     SpawnPrefab("mole_move_fx").Transform:SetPosition(inst.Transform:GetWorldPosition())
+end
+
+
+-- Gebados Prison Functions
+local function startaura(inst)
+    inst.Light:SetColour(255/255, 32/255, 32/255)
+    if inst:HasTag("girl") then
+        inst.SoundEmitter:PlaySound("dontstarve/ghost/ghost_girl_attack_LP", "angry")
+    else
+        inst.SoundEmitter:PlaySound("dontstarve/ghost/ghost_attack_LP", "angry")
+    end
+
+    inst.AnimState:SetMultColour(207/255,92/255,92/255,1)
+
+end
+
+local function stopaura(inst)
+    inst.Light:SetColour(180/255, 195/255, 225/255)
+    inst.SoundEmitter:KillSound("angry")
+    inst.AnimState:SetMultColour(1,1,1,1)
 end
 
 local actionhandlers =
@@ -329,6 +350,8 @@ local actionhandlers =
 
 local events =
 {
+    EventHandler("startaura", startaura),
+    EventHandler("stopaura", stopaura),
     EventHandler("locomote", function(inst, data)
         if inst.sg:HasStateTag("busy") then
             return

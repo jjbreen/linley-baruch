@@ -66,6 +66,24 @@ local common_postinit = function(inst)
 	inst:AddTag("linley_builder")
 end
 
+
+
+-- Gebados Prison Details
+local function GebadosPrison(inst, target)
+    if target.Sleep then
+        target:Sleep(1)
+    end
+    if target.Physics then
+        target.Physics:Stop()
+    end
+    if target.sg then
+        --target.sg:GoToState("stunned")
+        target:PushEvent("gotosleep")  
+    end
+end
+
+
+
 -- This initializes for the server only. Components are added here.
 local master_postinit = function(inst)
 	-- choose which sounds this character will play
@@ -102,6 +120,10 @@ local master_postinit = function(inst)
 
     inst:SetStateGraph("SGlinley")
     
+    inst:AddComponent("aura")
+    inst.components.aura.radius = 25
+    inst.components.aura.tickperiod = .1
+    inst.components.aura.auratestfn = GebadosPrison
 end
 
 return MakePlayerCharacter("linley", prefabs, assets, common_postinit, master_postinit, start_inv)
