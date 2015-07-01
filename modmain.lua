@@ -176,8 +176,8 @@ GLOBAL.TheInput:AddKeyDownHandler(GLOBAL.KEY_R,
 function()
 	local player = GLOBAL.ThePlayer
 	player.canWorldWalk = true
-	player.components.locomotor.walkspeed = 13
-	player.components.locomotor.runspeed = 16
+	player.components.locomotor.walkspeed = 20
+	player.components.locomotor.runspeed = 25
 end
 )
 
@@ -220,12 +220,10 @@ function()
         pt.y = 0
         player.Physics:Stop()
         player.Physics:Teleport(pt.x,pt.y,pt.z)
-	    player.DynamicShadow:Enable(false)
 	else
-		pt.y = 1
+		pt.y = 50
         player.Physics:Stop()
         player.Physics:Teleport(pt.x,pt.y,pt.z)
-	    player.DynamicShadow:Enable(true)
 	end
 end
 )

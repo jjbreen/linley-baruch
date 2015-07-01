@@ -31,8 +31,8 @@ local assets = {
         Asset( "SOUND", "sound/wilson.fsb" ),
         Asset( "ANIM", "anim/beard.zip" ),
 
-        --Asset( "ANIM", "anim/linley.zip" ),
-        --Asset( "ANIM", "anim/ghost_linley_build.zip" ),
+        Asset( "ANIM", "anim/linley.zip" ),
+        Asset( "ANIM", "anim/ghost_linley_build.zip" ),
 }
 local prefabs = {
 }
